@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل إنقاذ الحاسوب</title>
+<meta name="description" content="كتالوج أعطال الحاسوب وحلولها — إعداد الطالب محمد مازن، الصف الثامن">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --ink:#10202B; --ink-2:#1A3140; --ink-3:#25455A;
+  --cream:#FFF6E5; --paper:#FFFDF7; --line:#E9DCC4;
+  --tang:#FF7A3D; --tang-d:#E0581B; --tang-l:#FFE1D1;
+  --mint:#2FD18B; --mint-d:#14A365; --mint-l:#D5F7E7;
+  --berry:#FF4F6D; --berry-l:#FFE0E6;
+  --sun:#FFC93C; --sun-l:#FFF1C7;
+  --sky:#5CC8FF; --sky-l:#DDF3FF;
+  --lav:#A3ABEF; --lav-l:#E4E7FC;
+  --muted:#5E6E78;
+}
+*{box-sizing:border-box}
+@page{size:A4;margin:0}
+html,body{margin:0}
+body{background:#1B2A35;font-family:"IBM Plex Sans Arabic",sans-serif;color:var(--ink);line-height:1.6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.book{display:flex;flex-direction:column;align-items:center;gap:28px;padding:28px 16px}
+.page{width:210mm;height:297mm;background:var(--cream);position:relative;overflow:hidden;padding:15mm 14mm 13mm;display:flex;flex-direction:column;
+  box-shadow:0 20px 60px -20px rgba(0,0,0,.6)}
+.page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(16,32,43,.07) 1.2px,transparent 1.4px);background-size:18px 18px}
+.page>*{position:relative}
+@media print{body{background:none}.book{padding:0;gap:0}.page{box-shadow:none;break-after:page}}
+@media screen and (max-width:820px){.page{transform-origin:top center}}
+.display{font-family:"Lalezar",cursive;font-weight:400;line-height:1.15;letter-spacing:-.01em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* footer */
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600;color:var(--muted);border-top:2px dashed var(--line);padding-top:6px}
+.foot b{font-family:"Lalezar";font-weight:400;font-size:16px;color:var(--ink);background:var(--sun);border:2px solid var(--ink);border-radius:8px;padding:0 10px}
+
+/* ---------- scene (render + live screen) ---------- */
+.scene{position:relative;aspect-ratio:2336/1744;overflow:hidden;background:var(--lav)}
+.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scr{position:absolute;left:30.75%;top:21.2%;width:23.5%;height:23.7%;border-radius:8% / 10%;overflow:hidden;
+  background:radial-gradient(120% 100% at 50% 42%,#26357A 0%,#1A2558 55%,#111839 100%)}
+.scr::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.045) 0 2px,transparent 2px 4px),linear-gradient(155deg,rgba(255,255,255,.16),transparent 38%)}
+.scr.off{background:#0B1029}
+.scr svg{position:absolute;inset:0;width:100%;height:100%}
+.scr .face{filter:drop-shadow(0 0 5px rgba(124,255,160,.85))}
+.spk-x{position:absolute;left:10.5%;top:47%;width:6.5%;aspect-ratio:1;margin:-3.25% 0 0 -3.25%;border-radius:50%;background:var(--berry);border:2px solid var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.glow{position:absolute;width:13%;aspect-ratio:1;margin:-6.5% 0 0 -6.5%;border-radius:50%;mix-blend-mode:screen}
+.glow.fan{left:69.7%;top:49.4%;background:radial-gradient(circle,rgba(255,130,40,.9),rgba(255,80,30,0) 62%)}
+.glow.router{left:70.3%;top:24%;width:10%;margin:-5% 0 0 -5%;background:radial-gradient(circle,rgba(255,60,90,.9),rgba(255,60,90,0) 60%)}
+
+/* ---------- cover ---------- */
+.cover{background:radial-gradient(500px 380px at 100% 0,rgba(255,122,61,.28),transparent 70%),radial-gradient(500px 380px at 0 100%,rgba(163,171,239,.55),transparent 70%),var(--cream)}
+.cover .top{display:flex;justify-content:space-between;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);border-radius:999px;padding:3px 14px;font-weight:700;font-size:13px;background:var(--paper)}
+.pill.sun{background:var(--sun)} .pill.mint{background:var(--mint)} .pill.tang{background:var(--tang)}
+.cover h1{font-size:76px;margin:16mm 0 0;letter-spacing:-.02em}
+.cover h1 em{font-style:normal;color:var(--tang);display:inline-block;transform:rotate(-3deg)}
+.cover .sub{font-size:20px;font-weight:600;margin:4px 0 0;color:var(--ink-3)}
+.cover .en{font-weight:600;color:var(--muted);font-size:14px;letter-spacing:.04em}
+.cover-art{margin-top:10mm;border:3px solid var(--ink);border-radius:22px;overflow:hidden;transform:rotate(-1.5deg);box-shadow:0 8px 0 var(--ink),0 30px 60px -25px rgba(16,32,43,.6)}
+.stickers{position:relative;height:0}
+.sticker{position:absolute;border:3px solid var(--ink);border-radius:14px;font-family:"Lalezar";font-size:22px;padding:4px 14px;box-shadow:0 4px 0 var(--ink)}
+.credits{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.credits div{background:var(--paper);border:3px solid var(--ink);border-radius:14px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--muted)}
+.credits b{display:block;font-family:"Lalezar";font-weight:400;font-size:22px;color:var(--ink);line-height:1.3}
+
+/* ---------- intro ---------- */
+h2.sec{font-size:40px;margin:0 0 4px}
+.lead{font-size:16px;margin:0 0 6mm;color:var(--ink-3)}
+.story{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border:3px solid var(--ink);border-radius:18px;padding:14px 16px;box-shadow:0 5px 0 var(--ink);margin-bottom:8mm}
+.story .av{flex:none;width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);background:var(--sun-l);display:grid;place-items:center;font-size:30px}
+.story p{margin:0;font-size:15px;font-weight:500}
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:9mm}
+.step{border:3px solid var(--ink);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:0 5px 0 var(--ink);position:relative}
+.step .ic{font-size:30px;line-height:1}
+.step b{display:block;font-family:"Lalezar";font-weight:400;font-size:24px;margin-top:4px}
+.step small{display:block;font-size:12px;font-weight:600;line-height:1.45;margin-top:2px}
+.step .n{position:absolute;top:-12px;right:10px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:"Lalezar";display:grid;place-items:center;font-size:15px}
+.toc{border:3px solid var(--ink);border-radius:18px;background:var(--paper);overflow:hidden;box-shadow:0 5px 0 var(--ink)}
+.toc h3{margin:0;background:var(--ink);color:var(--cream);font-family:"Lalezar";font-weight:400;font-size:24px;padding:6px 16px}
+.toc ol{list-style:none;margin:0;padding:4px 0}
+.toc li{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px;padding:7px 16px;border-bottom:2px dashed var(--line);font-weight:700;font-size:16px}
+.toc li:last-child{border-bottom:0}
+.toc .i{width:36px;height:36px;border-radius:10px;border:2px solid var(--ink);display:grid;place-items:center;font-size:19px;background:var(--tang-l)}
+.toc .en{display:block;font-size:11px;color:var(--muted);font-weight:600;direction:ltr;text-align:right}
+.toc .pg{font-family:"Lalezar";font-weight:400;font-size:20px;color:var(--tang-d)}
+
+/* ---------- fault page ---------- */
+.f-head{display:flex;align-items:center;gap:12px;margin-bottom:4mm}
+.f-num{flex:none;width:62px;height:62px;border-radius:18px;background:var(--tang);border:3px solid var(--ink);display:grid;place-items:center;font-family:"Lalezar";font-size:36px;transform:rotate(-5deg);box-shadow:0 4px 0 var(--ink)}
+.f-head h2{font-size:38px;margin:0}
+.f-head .en{font-weight:600;color:var(--muted);font-size:14px;direction:ltr;text-align:right}
+.f-head .icon{margin-inline-start:auto;font-size:40px}
+.f-top{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:14px}
+.shot{border:3px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:0 5px 0 var(--ink);background:var(--lav);display:flex;flex-direction:column}
+.shot figcaption{background:var(--ink);color:var(--cream);font-size:13px;font-weight:600;padding:8px 12px;line-height:1.5;flex:1}
+.shot figcaption b{color:var(--sun)}
+figure{margin:0}
+.stack{display:flex;flex-direction:column;gap:14px}
+.card{border:3px solid var(--ink);border-radius:16px;background:var(--paper);padding:12px 16px;box-shadow:0 4px 0 var(--ink)}
+.card h4{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:8px}
+.card h4 .k{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-family:"Lalezar";font-weight:400;font-size:16px}
+.card ul{margin:0;padding-inline-start:18px;font-size:15px;line-height:1.7}
+.card li::marker{color:var(--tang-d)}
+.c-sym h4 .k{background:var(--tang)} .c-cause h4 .k{background:var(--sun)}
+.c-diag{margin-bottom:14px}
+.c-diag h4 .k{background:var(--sky)}
+.diag{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.diag div{display:flex;gap:8px;align-items:flex-start;background:var(--sky-l);border:2px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:15px;font-weight:600;line-height:1.5}
+.diag i{flex:none;font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--cream);display:grid;place-items:center;font-family:"Lalezar";font-size:14px}
+.f-bot{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.c-fix{background:var(--mint-l)} .c-fix h4 .k{background:var(--mint)}
+.c-prev{background:var(--sun-l)} .c-prev h4 .k{background:var(--berry)}
+.tip{margin-top:14px;display:flex;gap:10px;align-items:center;border:3px dashed var(--ink-3);border-radius:14px;padding:12px 16px;font-size:15px;font-weight:700;color:var(--ink-3)}
+.tip span{font-size:26px}
+.cust{display:flex;gap:12px;align-items:center;margin-bottom:5mm}
+.cust .av{flex:none;width:52px;height:52px;border-radius:50%;border:3px solid var(--ink);background:var(--sun-l);display:grid;place-items:center;font-size:28px}
+.cust .bub{flex:1;background:var(--paper);border:3px solid var(--ink);border-radius:16px;border-top-right-radius:4px;padding:8px 14px;font-weight:600;font-size:15px;box-shadow:0 4px 0 var(--ink)}
+.cust .bub b{color:var(--tang-d);font-size:13px;display:block;line-height:1.3}
+bdi{white-space:nowrap}
+.tip span{font-size:22px}
+
+/* ---------- back page ---------- */
+.back{background:radial-gradient(520px 400px at 0 0,rgba(47,209,139,.25),transparent 70%),radial-gradient(520px 400px at 100% 100%,rgba(255,122,61,.25),transparent 70%),var(--cream)}
+.play{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:var(--ink);color:var(--cream);border:3px solid var(--ink);border-radius:22px;padding:18px 20px;box-shadow:0 8px 0 #0a151c;margin:6mm 0 8mm}
+.play h3{font-family:"Lalezar";font-weight:400;font-size:40px;margin:0;line-height:1.15}
+.play h3 em{font-style:normal;color:var(--sun)}
+.play p{margin:6px 0 10px;font-size:14px;opacity:.85}
+.play .url{font-size:13px;font-weight:700;background:var(--ink-2);border:2px solid var(--ink-3);border-radius:10px;padding:4px 10px;display:inline-block;direction:ltr}
+.qr{background:#fff;border:4px solid var(--sun);border-radius:16px;padding:10px;width:170px;height:170px}
+.qr img,.qr canvas{width:100%!important;height:100%!important;display:block}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8mm}
+.how div{border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:10px;text-align:center;font-weight:700;font-size:13px;box-shadow:0 4px 0 var(--ink)}
+.how span{display:block;font-size:26px}
+.ai{border:3px solid var(--ink);border-radius:16px;background:var(--paper);padding:12px 16px;font-size:13px;box-shadow:0 4px 0 var(--ink)}
+.ai h4{margin:0 0 4px;font-size:16px}
+.ai ul{margin:0;padding-inline-start:18px}
+.thanks{margin-top:auto;text-align:center}
+.thanks .display{font-size:46px}
+.thanks p{margin:0;font-weight:600;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="book" id="book"></main>
+
+<script>
+const SITE = 'https://abood232323.github.io/computer-clinic/';
+const AR = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+
+/* ---- screen face pieces (same art as the game) ---- */
+const G='fill="#7CFFA0"', GS='stroke="#7CFFA0" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+const FACES={
+  happy:`<rect x="196" y="120" width="30" height="86" rx="15" ${G}/><rect x="326" y="120" width="30" height="86" rx="15" ${G}/><path d="M214 262 Q276 316 338 262" ${GS}/>`,
+  sad:`<rect x="196" y="138" width="30" height="66" rx="15" ${G}/><rect x="326" y="138" width="30" height="66" rx="15" ${G}/><path d="M180 112 L232 124 M372 112 L320 124" ${GS}/><path d="M222 300 Q276 254 330 300" ${GS}/>`,
+  hot:`<path d="M186 130 L238 162 L186 194 M366 130 L314 162 L366 194" ${GS}/><path d="M206 282 q17 -18 34 0 q17 18 34 0 q17 -18 34 0 q17 18 34 0" ${GS}/>`,
+  slow:`<path d="M186 172 q25 18 50 0 M316 172 q25 18 50 0" ${GS}/><rect x="186" y="140" width="50" height="10" rx="5" ${G} opacity=".6"/><rect x="316" y="140" width="50" height="10" rx="5" ${G} opacity=".6"/><path d="M236 272 L316 272" ${GS}/>`,
+  confused:`<rect x="196" y="120" width="30" height="86" rx="15" ${G}/><rect x="330" y="150" width="24" height="44" rx="12" ${G}/><path d="M316 112 L370 100" ${GS}/><path d="M214 282 q20 -16 40 0 q20 16 40 0 q20 -16 40 0" ${GS}/>`
+};
+const EXTRA={
+  sweat:`<path d="M424 96 q14 20 0 30 q-14 -10 0 -30z" fill="#7CD3FF"/>`,
+  turtle:`<text x="44" y="86" font-size="58">🐢</text>`,
+  bar:`<rect x="140" y="338" width="272" height="30" rx="15" fill="none" stroke="#7CFFA0" stroke-width="6"/><rect x="150" y="347" width="80" height="12" rx="6" fill="#7CFFA0"/>`,
+  wifi:`<g transform="translate(470 70)"><path d="M-34 -6 a48 48 0 0 1 68 0 M-22 8 a30 30 0 0 1 44 0" stroke="#FF6B81" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="0" cy="22" r="7" fill="#FF6B81"/><path d="M-36 30 L36 -36" stroke="#FF6B81" stroke-width="9" stroke-linecap="round"/></g>`,
+  mute:`<g transform="translate(456 66)"><path d="M-40 -12 h16 l22 -20 v64 l-22 -20 h-16z" fill="#FF6B81"/><path d="M12 -14 l28 28 M40 -14 l-28 28" stroke="#FF6B81" stroke-width="9" stroke-linecap="round"/></g>`,
+  q:`<text x="440" y="300" font-size="74" font-weight="700" fill="#FFD866" font-family="Lalezar">?</text>`,
+  nosig:`<rect x="146" y="166" width="260" height="82" rx="14" fill="#0E1533" stroke="#FFD866" stroke-width="5"/><text x="276" y="221" fill="#FFD866" font-size="40" font-weight="700" text-anchor="middle" font-family="IBM Plex Sans Arabic">No Signal</text>`,
+  cursor:`<path d="M396 268 l0 46 l12 -12 l10 22 l11 -5 l-10 -21 l17 0 z" fill="#FFFDF7" stroke="#10202B" stroke-width="4" stroke-linejoin="round"/>`
+};
+/* img, face, extras, overlays */
+const LOOK={
+  cover:['base','happy',['cursor'],[]],
+  power:['power',null,[],[]],
+  display:['display',null,['nosig'],[]],
+  slow:['base','slow',['turtle','bar','sweat','cursor'],[]],
+  hot:['hot','hot',['sweat','cursor'],['fan']],
+  sound:['base','sad',['mute','cursor'],['spk']],
+  input:['input','confused',['q','cursor'],[]],
+  net:['net','sad',['wifi','cursor'],['router']]
+};
+function scene(id){
+  const [img,face,extras,ov]=LOOK[id];
+  return `<div class="scene"><img src="img/${img}.webp" alt="">
+    ${ov.includes('fan')?'<div class="glow fan"></div>':''}${ov.includes('router')?'<div class="glow router"></div>':''}${ov.includes('spk')?'<div class="spk-x">✖</div>':''}
+    <div class="scr ${face?'':'off'}"><svg viewBox="0 0 551 415">${face?`<g class="face">${FACES[face]}</g>`:''}${extras.map(e=>EXTRA[e]).join('')}</svg></div></div>`;
+}
+
+/* ---- the 7 faults ---- */
+const F=[
+{id:'power',cust:'أبو سامر',av:'👨🏻‍🦳',quote:'ضغطت زر التشغيل عشر مرات… لا لمبة ولا صوت! 😩',icon:'🔌',t:'الحاسوب لا يعمل',en:"PC Won't Turn On",
+ cap:'<b>في الصورة:</b> قابس الكهرباء مفصول عن المقبس، ولمبات الجهاز مطفأة.',
+ sym:['لا تضيء أي لمبة عند الضغط على زر التشغيل','لا يُسمع صوت المروحة (Fan)','الشاشة تبقى مطفأة تمامًا'],
+ cause:['كابل الكهرباء (Power Cable) غير موصول أو تالف','المقبس أو مشترك الكهرباء لا يعمل','عطل في مزوّد الطاقة (Power Supply – PSU)','في اللابتوب: البطارية فارغة أو الشاحن تالف'],
+ steps:['تأكد أن الكابل موصول جيدًا بالجهاز وبالمقبس','جرّب المقبس بجهاز آخر مثل شاحن الهاتف','تأكد أن مفتاح مزوّد الطاقة خلف الجهاز على وضع (I)','في اللابتوب: صِل الشاحن وانتظر 10 دقائق ثم حاول'],
+ fix:['إعادة توصيل الكابل أو استبداله، أو تغيير المقبس','إذا لم ينجح: استبدال مزوّد الطاقة (PSU) لدى فني مختص'],
+ prev:['استخدام مشترك كهرباء بحماية (Surge Protector)','عدم سحب الكابل بقوة أو ثنيه'],
+ tip:'ابدأ دائمًا بالأبسط: الكهرباء أولًا قبل أي شيء آخر!'},
+{id:'display',cust:'سارة',av:'👩🏻',quote:'الجهاز شغّال وأسمع المروحة… بس الشاشة سوداء ومكتوب عليها No Signal! 🤔',icon:'🖥️',t:'الشاشة لا تعرض صورة',en:'No Display',
+ cap:'<b>في الصورة:</b> الجهاز يعمل، لكن كابل HDMI مفصول والشاشة تقول No Signal.',
+ sym:['الجهاز يعمل (المروحة تدور واللمبة مضيئة) لكن الشاشة سوداء','قد تظهر رسالة No Signal على الشاشة'],
+ cause:['كابل الشاشة (HDMI / VGA) غير موصول أو تالف','الشاشة مطفأة أو على المدخل (Input) الخطأ','ذاكرة RAM غير مثبتة جيدًا','عطل في كرت الشاشة (Graphics Card)'],
+ steps:['تأكد أن زر تشغيل الشاشة مضاء','افحص كابل HDMI من الطرفين','اضغط Input / Source واختر المدخل الصحيح','جرّب الشاشة مع جهاز آخر لتحديد مكان العطل'],
+ fix:['إعادة توصيل الكابل أو تغييره، واختيار المدخل الصحيح','إعادة تثبيت الـ RAM أو استبدال كرت الشاشة (لدى فني)'],
+ prev:['تثبيت الكابلات جيدًا','عدم تحريك الجهاز وهو يعمل'],
+ tip:'رسالة No Signal معناها: الشاشة سليمة، لكن الإشارة لا تصلها.'},
+{id:'slow',cust:'المعلم خالد',av:'👨🏽‍🏫',quote:'فتحت ملف Word واستنّيت خمس دقائق! الجهاز صار سلحفاة 🐢',icon:'🐢',t:'بطء الحاسوب',en:'Slow Computer',
+ cap:'<b>في الصورة:</b> الجهاز يحاول فتح برنامج… والتحميل بطيء مثل السلحفاة.',
+ sym:['البرامج تفتح ببطء شديد','الجهاز "يعلّق" عند فتح أكثر من برنامج','الإقلاع (Startup) يأخذ وقتًا طويلًا'],
+ cause:['فتح برامج كثيرة في نفس الوقت','برامج كثيرة تعمل تلقائيًا عند بدء التشغيل','القرص الصلب ممتلئ (أقل من 10% فارغ)','فيروسات أو برامج ضارة (Malware) / ذاكرة RAM قليلة'],
+ steps:['افتح مدير المهام: Ctrl + Shift + Esc','راقب استهلاك المعالج (CPU) والذاكرة (Memory)','افحص المساحة المتبقية من This PC','افحص الجهاز ببرنامج Windows Security'],
+ fix:['إغلاق البرامج غير الضرورية وتعطيلها من تبويب Startup','حذف الملفات غير المهمة واستخدام Disk Cleanup','إزالة الفيروسات، أو زيادة RAM / تركيب قرص SSD'],
+ prev:['عدم تنزيل برامج من مواقع غير موثوقة','إعادة تشغيل الجهاز وتحديث النظام بانتظام'],
+ tip:'احذر من برامج "تسريع الجهاز" المجهولة — كثير منها فيروسات!'},
+{id:'hot',cust:'يوسف',av:'🧑🏻‍💻',quote:'كنت ألعب والجهاز طفى لحاله! وصوت المروحة مثل الطيارة ✈️🔥',icon:'🔥',t:'ارتفاع حرارة الجهاز',en:'Overheating',
+ cap:'<b>في الصورة:</b> المروحة مسدودة بالغبار وتسخن، والحرارة تتصاعد من الجهاز.',
+ sym:['الجهاز ساخن جدًا عند لمسه','صوت المروحة عالٍ جدًا','الجهاز ينطفئ فجأة وحده'],
+ cause:['تراكم الغبار داخل الجهاز وعلى المروحة','فتحات التهوية مغلقة (مثل لابتوب على السرير)','المروحة لا تعمل','تشغيل ألعاب أو برامج ثقيلة لفترة طويلة'],
+ steps:['تحسّس فتحات التهوية: هل يخرج هواء ساخن؟','استمع إلى المروحة: هل تدور؟','افحص مكان الجهاز: هل الفتحات مغطاة؟','راقب الحرارة من Task Manager ← Performance'],
+ fix:['إطفاء الجهاز وتنظيف الغبار بالهواء المضغوط','وضعه على سطح صلب، واستخدام قاعدة تبريد (Cooling Pad)','استبدال المروحة إذا كانت تالفة'],
+ prev:['تنظيف الجهاز من الغبار كل بضعة أشهر','عدم وضع اللابتوب على السرير أو الوسادة'],
+ tip:'لا ترشّ الماء على الجهاز أبدًا ولا تضعه في الثلاجة! ❄️🚫'},
+{id:'sound',cust:'ليان',av:'👧🏻',quote:'أشغّل الفيديو وما في ولا صوت! 🎵❌',icon:'🔇',t:'عدم وجود صوت',en:'No Sound',
+ cap:'<b>في الصورة:</b> الفيديو يعمل، لكن الصوت مكتوم (Mute) والسماعة صامتة.',
+ sym:['لا يخرج صوت من السماعات عند تشغيل فيديو أو أغنية','تظهر علامة ✖ على أيقونة الصوت'],
+ cause:['الصوت مكتوم (Mute) أو منخفض جدًا','السماعات غير موصولة أو مطفأة','اختيار جهاز إخراج صوت خاطئ (Output Device)','تعريف الصوت (Audio Driver) قديم أو تالف'],
+ steps:['اضغط أيقونة الصوت 🔊 وتأكد أنه غير مكتوم','تأكد من توصيل السماعات بالمنفذ الصحيح (الأخضر عادةً)','افتح Sound Settings واختر جهاز الإخراج الصحيح','جرّب السماعات على جهاز آخر'],
+ fix:['إلغاء الكتم ورفع مستوى الصوت','اختيار جهاز الإخراج الصحيح وتشغيل Troubleshoot للصوت','تحديث تعريف الصوت من Device Manager'],
+ prev:['تحديث نظام التشغيل والتعريفات باستمرار','فصل السماعات بلطف وعدم سحب الكابل'],
+ tip:'أسهل حل في العالم: افحص أيقونة الصوت أولًا! 😄'},
+{id:'input',cust:'عمر',av:'👦🏽',quote:'المؤشر واقف مكانه! أحرّك الماوس وما يتحرك 😤',icon:'🖱️',t:'لوحة المفاتيح أو الفأرة لا تعمل',en:'Keyboard / Mouse Not Working',
+ cap:'<b>في الصورة:</b> بطارية الفأرة اللاسلكية فارغة، فالمؤشر لا يتحرك.',
+ sym:['المؤشر لا يتحرك على الشاشة','الضغط على المفاتيح لا يكتب شيئًا'],
+ cause:['الكابل غير موصول أو منفذ USB لا يعمل','في اللاسلكي: البطارية فارغة أو الـ Bluetooth مطفأ','تعريف الجهاز (Driver) لا يعمل','في اللابتوب: لوحة اللمس (Touchpad) معطّلة'],
+ steps:['افصل الجهاز وأعد توصيله بمنفذ USB آخر','غيّر البطارية وتأكد من زر التشغيل أسفل الفأرة','جرّب الفأرة / لوحة المفاتيح على جهاز آخر','افتح Device Manager وابحث عن علامة ⚠ صفراء'],
+ fix:['تغيير المنفذ أو البطارية، وإعادة اقتران الـ Bluetooth','إعادة تشغيل الجهاز أو إعادة تثبيت التعريف','استبدال الجهاز إذا كان تالفًا'],
+ prev:['إبعاد السوائل والطعام عن لوحة المفاتيح','استبدال البطاريات قبل أن تفرغ تمامًا'],
+ tip:'اقلب الفأرة: إذا كان ضوؤها مطفأً، فالمشكلة غالبًا في البطارية.'},
+{id:'net',cust:'أم محمد',av:'👩🏽',quote:'المواقع ما تفتح! بدي أتابع واجبات الأولاد 📚🌐',icon:'🌐',t:'مشكلة في الاتصال بالإنترنت',en:'No Internet',
+ cap:'<b>في الصورة:</b> لمبات الراوتر حمراء، والجهاز يقول No Internet.',
+ sym:['المواقع لا تفتح','تظهر رسالة No Internet أو علامة ✖ على أيقونة الشبكة'],
+ cause:['الـ Wi-Fi مطفأ أو وضع الطيران (Airplane Mode) مفعّل','كلمة مرور الـ Wi-Fi خاطئة','الراوتر (Router) يحتاج إلى إعادة تشغيل','انقطاع الخدمة من شركة الإنترنت'],
+ steps:['تأكد أن الـ Wi-Fi مفعّل ووضع الطيران مطفأ','افحص لمبات الراوتر: هل لمبة الإنترنت حمراء؟','جرّب الإنترنت على جهاز آخر مثل الهاتف','شغّل أداة Network Troubleshooter'],
+ fix:['تشغيل الـ Wi-Fi وإيقاف وضع الطيران','إعادة تشغيل الراوتر: افصله 30 ثانية ثم أعد توصيله','الاتصال بشركة الإنترنت إذا كانت المشكلة على كل الأجهزة'],
+ prev:['وضع الراوتر في مكان مفتوح ومرتفع','عدم مشاركة كلمة مرور الشبكة مع الغرباء'],
+ tip:'إذا كان الهاتف أيضًا بلا إنترنت، فالمشكلة ليست في الحاسوب!'}
+];
+const FIRST_FAULT_PAGE = 3;
+const foot = n => `<div class="foot"><span>دليل إنقاذ الحاسوب · إعداد: محمد مازن</span><b>${AR(n)}</b></div>`;
+const BD = x => x.replace(/\(([A-Za-z][^()]*)\)/g,'<bdi>($1)</bdi>');
+const UL = a => `<ul>${a.map(x=>`<li>${BD(x)}</li>`).join('')}</ul>`;
+
+const pages = [];
+/* 1. cover */
+pages.push(`<section class="page cover">
+  <div class="top"><span class="pill sun">💻 مادة المهارات الرقمية</span><span class="pill">الصف الثامن</span></div>
+  <h1 class="display">دليل <em>إنقاذ</em><br>الحاسوب</h1>
+  <p class="sub">كتالوج أعطال الحاسوب الشائعة وحلولها</p>
+  <div class="en ltr" style="text-align:right">COMPUTER RESCUE GUIDE</div>
+  <div class="stickers">
+    <span class="sticker" style="background:var(--mint);left:6mm;top:6mm;transform:rotate(6deg);z-index:2">٧ أعطال + حلولها</span>
+    <span class="sticker" style="background:var(--tang);right:-2mm;top:100mm;transform:rotate(-7deg);z-index:2">🎮 مع لعبة تفاعلية!</span>
+  </div>
+  <div class="cover-art">${scene('cover')}</div>
+  <div class="credits" style="margin-top:12mm">
+    <div>إعداد الطالب<b>محمد مازن</b></div>
+    <div>إشراف معلم المادة<b>أ. عبدالله أبوملوح</b></div>
+  </div>
+</section>`);
+/* 2. intro */
+pages.push(`<section class="page">
+  <h2 class="sec display">أهلًا بك في متجر الحاسوب! 👋</h2>
+  <p class="lead">هذا الدليل يساعدك على التفكير مثل فنّي الحاسوب المحترف.</p>
+  <div class="story"><div class="av">🧑‍🔧</div><p>تخيّل أنك تعمل في متجر لبيع أجهزة الحاسوب، ودخل زبون غاضب يقول: <b>«جهازي معطّل!»</b>. الفني الذكي لا يخمّن… بل يتبع خطوات واضحة ليعرف العطل ويصلحه، ثم ينصح الزبون كي لا تتكرر المشكلة.</p></div>
+  <h2 class="sec display" style="font-size:30px;margin-bottom:10px">طريقة الفني في ٤ خطوات</h2>
+  <div class="method">
+    <div class="step" style="background:var(--tang-l)"><span class="n">١</span><div class="ic">🔍</div><b>افحص</b><small>لاحظ الأعراض واجمع الأدلة</small></div>
+    <div class="step" style="background:var(--sun-l)"><span class="n">٢</span><div class="ic">🧠</div><b>شخّص</b><small>حدّد السبب الحقيقي للعطل</small></div>
+    <div class="step" style="background:var(--mint-l)"><span class="n">٣</span><div class="ic">🛠️</div><b>أصلح</b><small>اختر الحل الأبسط والأكثر أمانًا</small></div>
+    <div class="step" style="background:var(--berry-l)"><span class="n">٤</span><div class="ic">🛡️</div><b>امنع</b><small>انصح الزبون كي لا يتكرر العطل</small></div>
+  </div>
+  <div class="toc"><h3>📑 محتويات الدليل</h3><ol>
+    ${F.map((f,i)=>`<li><span class="i">${f.icon}</span><span>${AR(i+1)}. ${f.t}<span class="en">${f.en}</span></span><span class="pg">${AR(FIRST_FAULT_PAGE+i)}</span></li>`).join('')}
+    <li><span class="i" style="background:var(--mint-l)">🎮</span><span>جرّب بنفسك: لعبة «عيادة الحاسوب»<span class="en">Computer Clinic game</span></span><span class="pg">${AR(FIRST_FAULT_PAGE+7)}</span></li>
+  </ol></div>
+  ${foot(2)}
+</section>`);
+/* 3-9. faults */
+F.forEach((f,i)=>pages.push(`<section class="page">
+  <div class="f-head"><div class="f-num">${AR(i+1)}</div><div><h2 class="display">${f.t}</h2><div class="en">${f.en}</div></div><span class="icon">${f.icon}</span></div>
+  <div class="cust"><div class="av">${f.av}</div><div class="bub"><b>شكوى الزبون (${f.cust}):</b>«${f.quote}»</div></div>
+  <div class="f-top">
+    <figure class="shot">${scene(f.id)}<figcaption>${f.cap}</figcaption></figure>
+    <div class="stack">
+      <div class="card c-sym"><h4><span class="k">١</span>الأعراض التي يلاحظها المستخدم</h4>${UL(f.sym)}</div>
+      <div class="card c-cause"><h4><span class="k">٢</span>الأسباب المحتملة</h4>${UL(f.cause)}</div>
+    </div>
+  </div>
+  <div class="card c-diag"><h4><span class="k">٣</span>خطوات التشخيص</h4>
+    <div class="diag">${f.steps.map((s,k)=>`<div><i>${AR(k+1)}</i><span>${BD(s)}</span></div>`).join('')}</div></div>
+  <div class="f-bot">
+    <div class="card c-fix"><h4><span class="k">٤</span>الحل المقترح</h4>${UL(f.fix)}</div>
+    <div class="card c-prev"><h4><span class="k">٥</span>كيف نتجنّبها مستقبلًا؟</h4>${UL(f.prev)}</div>
+  </div>
+  <div class="tip"><span>💡</span>${f.tip}</div>
+  ${foot(FIRST_FAULT_PAGE+i)}
+</section>`));
+/* 10. back */
+pages.push(`<section class="page back">
+  <h2 class="sec display">جرّب بنفسك! 🎮</h2>
+  <p class="lead">حوّلنا هذا الدليل إلى لعبة تفاعلية: أنت الفني، والأجهزة المريضة تنتظرك.</p>
+  <div class="play">
+    <div><h3>عيادة <em>الحاسوب</em></h3><p>افحص الجهاز، اكتشف العطل، أصلحه… واحصل على شهادة «فني حاسوب معتمد» 🏅</p><span class="url">${SITE.replace('https://','')}</span></div>
+    <div class="qr" id="qr"></div>
+  </div>
+  <div class="how">
+    <div><span>📱</span>امسح الرمز بكاميرا الهاتف</div>
+    <div><span>✍️</span>اكتب اسمك وابدأ المناوبة</div>
+    <div><span>⭐</span>أصلح ٧ أجهزة واجمع ٢١ نجمة</div>
+  </div>
+  <div class="ai"><h4>🤖 استخدام أدوات الذكاء الاصطناعي</h4><ul>
+    <li>استُخدمت أدوات الذكاء الاصطناعي في اقتراح الأفكار، وتصميم الصور ثلاثية الأبعاد، وتنظيم المحتوى.</li>
+    <li>تمت مراجعة جميع المعلومات وفهمها من قِبل الطالب، وهو قادر على شرحها.</li></ul></div>
+  <div class="thanks"><div class="display">شكرًا لكم! 💚</div><p>كل عطل له حل… المهم أن نفكر مثل الفني.</p></div>
+  ${foot(FIRST_FAULT_PAGE+7)}
+</section>`);
+
+document.getElementById('book').innerHTML = pages.join('');
+new QRCode(document.getElementById('qr'), {text: SITE, width: 300, height: 300, colorDark: '#10202B', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
+Promise.all([document.fonts.ready, ...[...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; }))]).then(() => { window.READY = true; });
+</script>
+</body>
+</html>
