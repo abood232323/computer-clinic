@@ -287,6 +287,8 @@ dialog[open]{animation:enter .5s var(--spring)}
 .blk.c1 h5 span{background:var(--tang)}.blk.c2 h5 span{background:var(--sun)}.blk.c3 h5 span{background:var(--sky)}
 .blk.c4 h5 span{background:var(--mint)}.blk.c5 h5 span{background:var(--berry)}.blk.c6 h5 span{background:#C7A6FF}
 .blk.wide{grid-column:1/-1}
+.vdlg{max-width:1100px}
+.vdlg video{display:block;width:100%;aspect-ratio:16/9;background:var(--ink);border-radius:0 0 18px 18px}
 
 /* ---------- certificate ---------- */
 .cert-wrap{display:grid;place-items:center;padding-top:var(--s4)}
@@ -365,6 +367,7 @@ footer{color:rgba(255,246,229,.45);text-align:center;font-size:13px;margin-top:v
           <button class="btn" type="submit">ابدأ المناوبة 🚀</button>
         </form>
         <div class="hero-actions">
+          <button class="btn sun sm" id="play-trailer">🎬 شاهد الفيديو</button>
           <button class="btn ghost sm" data-go="catalog">📖 كتالوج الأعطال</button>
           <button class="btn ghost sm" data-go="room">🪑 غرفة الانتظار</button>
           <a class="btn ghost sm" href="catalog.pdf" target="_blank" rel="noopener">📄 الكتالوج PDF</a>
@@ -454,6 +457,10 @@ footer{color:rgba(255,246,229,.45);text-align:center;font-size:13px;margin-top:v
 </div>
 
 <dialog id="dlg" aria-labelledby="dlg-title"></dialog>
+<dialog id="vdlg" class="vdlg" aria-label="فيديو المشروع">
+  <div class="dlg-h"><span class="big">🎬</span><div><h3>عيادة الحاسوب — الفيديو</h3><small>Project trailer</small></div><button class="icon-btn" id="vdlg-x" aria-label="إغلاق">✕</button></div>
+  <video id="trailer" src="trailer.mp4" poster="img/trailer-poster.webp" controls playsinline preload="none"></video>
+</dialog>
 
 <script>
 /* ================= DATA ================= */
@@ -880,6 +887,13 @@ function openDlg(i){
   $('#dlg-play').onclick=()=>{d.close();openCase(i)};
 }
 $('#dlg').addEventListener('click',e=>{ if(e.target.id==='dlg') e.target.close(); });
+
+/* ================= TRAILER ================= */
+const vdlg=$('#vdlg'), trailer=$('#trailer');
+$('#play-trailer').addEventListener('click',()=>{ sfx.click(); vdlg.showModal(); trailer.play().catch(()=>{}); });
+$('#vdlg-x').addEventListener('click',()=>vdlg.close());
+vdlg.addEventListener('click',e=>{ if(e.target===vdlg) vdlg.close(); });
+vdlg.addEventListener('close',()=>trailer.pause());
 
 /* ================= CERT ================= */
 function renderCert(){
